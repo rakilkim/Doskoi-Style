@@ -1,0 +1,114 @@
+<section id="catering" class="section">
+  <div class="section-head">
+    <h2>Catering Request</h2>
+    <p>Tell us about your event and we will get back to you quickly.</p>
+  </div>
+
+  <form id="catering-form" class="catering-form">
+    <div class="form-grid two-col">
+      <label>
+        Name
+        <input name="name" type="text" required />
+      </label>
+      <label>
+        Email
+        <input name="email" type="email" required />
+      </label>
+      <label>
+        Event Date
+        <input name="eventDate" type="date" required />
+      </label>
+      <label>
+        Type of Event
+        <input name="eventType" type="text" placeholder="Wedding, Corporate, Birthday..." required />
+      </label>
+    </div>
+
+    <fieldset>
+      <legend>Event Address</legend>
+      <div class="form-grid two-col">
+        <label>
+          Street Address
+          <input name="streetAddress" type="text" required />
+        </label>
+        <label>
+          Address Line 2
+          <input name="addressLine2" type="text" />
+        </label>
+        <label>
+          City
+          <input name="city" type="text" required />
+        </label>
+        <label>
+          State
+          <input name="state" type="text" required />
+        </label>
+        <label>
+          Zip Code
+          <input name="zipCode" type="text" required />
+        </label>
+        <label>
+          Country
+          <input name="country" type="text" required />
+        </label>
+      </div>
+    </fieldset>
+
+    <div class="form-grid two-col">
+      <label>
+        Number of People
+        <input name="numberOfPeople" type="number" min="1" required />
+      </label>
+      <label>
+        Budget
+        <input name="budget" type="text" placeholder="$1,500" required />
+      </label>
+    </div>
+
+    <label>
+      What would you like to have for your catering?
+      <textarea name="cateringDetails" rows="4" required></textarea>
+    </label>
+
+    <label>
+      Messages & Requests
+      <textarea name="messages" rows="4"></textarea>
+    </label>
+
+    <button type="submit">Send Catering Request</button>
+    <p id="form-status" class="form-status" aria-live="polite"></p>
+  </form>
+</section>
+
+<script>
+  const form = document.querySelector("#catering-form");
+  const statusEl = document.querySelector("#form-status");
+
+  const setStatus = (message, isError = false) => {
+    if (!statusEl) return;
+    statusEl.textContent = message;
+    statusEl.classList.toggle("error", isError);
+  };
+
+  if (form) {
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      setStatus("Sending your request...");
+
+      const payload = Object.fromEntries(new FormData(form).entries());
+      try {
+        const response = await fetch("/api/catering", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) throw new Error("Unable to submit.");
+        form.reset();
+        setStatus("Thanks! Your catering request has been sent.");
+      } catch (error) {
+        setStatus("We could not send your request. Please try again.", true);
+      }
+    });
+  }
+</script>

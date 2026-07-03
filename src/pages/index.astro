@@ -1,0 +1,61 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ScheduleCalendar from "../components/ScheduleCalendar.astro";
+import CateringForm from "../components/CateringForm.astro";
+---
+
+<BaseLayout title="Doskoi Style | Food Truck">
+  <main>
+    <section class="hero">
+      <h1>GET HIT WITH THE TASTE OF JAPAN!</h1>
+      <p>
+        Doskoi Style Food Truck offers unique Japanese fusion cuisine and
+        traditional Japanese street food. The star of the menu is the Kakuni
+        taco, featuring tender, slow-braised pork belly in a soft tortilla,
+        topped with onion, cilantro and a drizzle of yuzu mayo. We also serve
+        traditional Japanese street food, like yakisoba (stirfried noodles)and
+        yakiniku beef bowls! All dishes pair perfectly with our signature Lychee
+        Lemonade, made with real lychee bits and juice. Doskoi Style Food Truck
+        invites you to explore the best of Japanese fusion in every delicious
+        bite. We also have vegan, vegetarian, gluten free options!
+      </p>
+      <p>
+        We serve Catering for weddings, birthdays, corporate events,
+        neighborhood nights and office lunches.
+      </p>
+      <div class="hero-actions">
+        <a href="#schedule" class="button">See Schedule</a>
+        <a href="#catering" class="button button-secondary">Book Catering</a>
+      </div>
+    </section>
+
+    <ScheduleCalendar />
+    <CateringForm />
+
+    <section id="contact" class="section contact-section">
+      <div class="section-head">
+        <h2>Contact Us</h2>
+        <p>Reach out for questions, bookings, or schedule updates.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-card">
+          <span class="contact-label">Email</span>
+          <a href="mailto:TOKI@DOSKOISTYLE.COM">TOKI@DOSKOISTYLE.COM</a>
+        </div>
+        <div class="contact-card">
+          <span class="contact-label">Phone</span>
+          <a href="tel:+10000000000">(000) 000-0000</a>
+        </div>
+        <div class="contact-card">
+          <span class="contact-label">Instagram</span>
+          <a
+            href="https://www.instagram.com/doskoistylefoodtruck/"
+            target="_blank"
+            rel="noopener noreferrer">@DOSKOISTYLEFOODTRUCK</a
+          >
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
