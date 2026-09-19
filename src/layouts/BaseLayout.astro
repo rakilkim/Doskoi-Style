@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import logo from "../assets/Logo.png";
+import textLogo from "../assets/Logotype.png";
 
 interface Props {
   title?: string;
@@ -13,6 +15,7 @@ const { title = "Doskoi Style" } = Astro.props;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/Logo.png" />
     <title>{title}</title>
     <meta
       name="description"
@@ -22,7 +25,10 @@ const { title = "Doskoi Style" } = Astro.props;
   <body>
     <header class="site-header">
       <nav class="site-nav" aria-label="Primary">
-        <a class="site-brand" href="/">Doskoi Style</a>
+        <a class="site-container" href="/">
+          <img class="site-logo" src={logo.src} alt="Doskoi Style Logo" />
+          <span class="site-brand">Doskoi Style</span>
+        </a>
         <div class="site-nav-links">
           <a href="#schedule">Schedule</a>
           <a href="#catering">Catering</a>

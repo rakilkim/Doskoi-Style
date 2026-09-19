@@ -5,6 +5,13 @@
   </div>
 
   <form id="catering-form" class="catering-form">
+    <input
+      type="hidden"
+      name="access_key"
+      value="need access key from web3forms.com"
+    />
+    <input type="hidden" name="subject" value="New Catering Request" />
+
     <div class="form-grid two-col">
       <label>
         Name
@@ -20,7 +27,12 @@
       </label>
       <label>
         Type of Event
-        <input name="eventType" type="text" placeholder="Wedding, Corporate, Birthday..." required />
+        <input
+          name="eventType"
+          type="text"
+          placeholder="Wedding, Corporate, Birthday..."
+          required
+        />
       </label>
     </div>
 
@@ -61,7 +73,13 @@
       </label>
       <label>
         Budget
-        <input name="budget" type="text" placeholder="$1,500" required />
+        <input
+          name="budget"
+          type="text"
+          value="$"
+          placeholder="$1,500"
+          required
+        />
       </label>
     </div>
 
@@ -74,17 +92,18 @@
       Messages & Requests
       <textarea name="messages" rows="4"></textarea>
     </label>
-
+    <div class="h-captcha" data-captcha="true"></div>
     <button type="submit">Send Catering Request</button>
     <p id="form-status" class="form-status" aria-live="polite"></p>
   </form>
+  <script src="https://web3forms.com/client/script.js" async defer></script>
 </section>
 
 <script>
-  const form = document.querySelector("#catering-form");
-  const statusEl = document.querySelector("#form-status");
+  const form = document.querySelector<HTMLFormElement>("#catering-form");
+  const statusEl = document.querySelector<HTMLParagraphElement>("#form-status");
 
-  const setStatus = (message, isError = false) => {
+  const setStatus = (message: string, isError = false) => {
     if (!statusEl) return;
     statusEl.textContent = message;
     statusEl.classList.toggle("error", isError);
@@ -93,21 +112,67 @@
   if (form) {
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+
+      const hCaptchaResponse = form.querySelector<HTMLTextAreaElement>(
+        'textarea[name="h-captcha-response"]',
+      )?.value;
+
+      if (!hCaptchaResponse) {
+        setStatus("Please complete the captcha.", true);
+        return;
+      }
+
       setStatus("Sending your request...");
 
-      const payload = Object.fromEntries(new FormData(form).entries());
+      const formData = Object.fromEntries(new FormData(form).entries());
+
+      const address = [
+        formData.streetAddress,
+        formData.addressLine2,
+        formData.city,
+        formData.state,
+        formData.zipCode,
+        formData.country,
+      ]
+        .filter(Boolean)
+        .join(", ");
+
+      const payload = {
+        access_key: formData.access_key,
+        subject: formData.subject,
+        Name: formData.name,
+        Email: formData.email,
+        "Event Date": formData.eventDate,
+        "Type of Event": formData.eventType,
+        "Event Address": address,
+        "Number of People": formData.numberOfPeople,
+        Budget: formData.budget,
+        "Catering Details": formData.cateringDetails,
+        "Messages & Requests": formData.messages || "None",
+        "h-captcha-response": hCaptchaResponse,
+      };
+
       try {
-        const response = await fetch("/api/catering", {
+        const response = await fetch("https://api.web3forms.com/submit", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(payload)
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify(payload),
         });
 
-        if (!response.ok) throw new Error("Unable to submit.");
+        const data = await response.json();
+        if (!response.ok || !data.success)
+          throw new Error(data.message || "Unable to submit.");
+
         form.reset();
         setStatus("Thanks! Your catering request has been sent.");
       } catch (error) {
         setStatus("We could not send your request. Please try again.", true);
+      } finally {
+        // @ts-ignore -- hcaptcha is loaded globally via the external script
+        if (window.hcaptcha) window.hcaptcha.reset();
       }
     });
   }
