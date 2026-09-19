@@ -36,13 +36,17 @@ a {
 }
 
 .site-nav {
-  max-width: 1100px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 0.5rem 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+
+  @media (max-width: 450px) {
+    padding: 0.5rem 0.5rem;
+  }
 }
 
 .site-container {
@@ -52,8 +56,12 @@ a {
 }
 
 .site-logo {
-  height: 50px;
-  width: auto;
+  width: 70px;
+  height: auto;
+
+  @media (max-width: 1000px) {
+    width: 50px;
+  }
 }
 
 .textLogo-container {
@@ -72,7 +80,7 @@ a {
 }
 
 .site-textLogo {
-  width: 70%;
+  width: 60%;
   height: auto;
 }
 
@@ -80,18 +88,30 @@ a {
   font-weight: 800;
   letter-spacing: 0.04em;
   text-transform: uppercase;
+  font-size: clamp(1rem, 2vw, 3rem);
 }
 
 .site-nav-links {
   display: flex;
+  margin-right: 1rem;
   gap: 1rem;
   flex-wrap: wrap;
+  font-size: clamp(0.9rem, 1.5vw, 2rem);
+
+  @media (max-width: 450px) {
+    gap: 0.5rem;
+    margin-right: 0;
+  }
 }
 
 main {
-  max-width: 1100px;
+  max-width: 1600px;
   margin: 0 auto;
   padding: 2rem 1rem 4rem;
+
+  @media (max-width: 450px) {
+    padding: 2rem 0.5rem 4rem;
+  }
 }
 
 .hero {
@@ -100,6 +120,10 @@ main {
   border-radius: 1rem;
   background: var(--panel);
   margin-bottom: 2rem;
+
+  @media (max-width: 450px) {
+    padding: 2.25rem 1rem;
+  }
 }
 
 h1,
@@ -110,14 +134,15 @@ h3 {
 }
 
 h1 {
-  margin: 0 0 0.75rem;
-  font-size: clamp(2rem, 4vw, 3rem);
+  margin: 0.75rem 0rem;
+  font-size: clamp(1.5rem, 4vw, 4rem);
 }
 
 .hero p {
   margin: 0 0 1rem;
   color: var(--muted);
-  max-width: 70ch;
+  max-width: 100ch;
+  font-size: clamp(0.9rem, 1.5vw, 1.5rem);
 }
 
 .hero .eyebrow {
@@ -133,6 +158,7 @@ h1 {
   display: flex;
   gap: 0.75rem;
   flex-wrap: wrap;
+  margin-top: 2rem;
 }
 
 .button {
@@ -157,11 +183,13 @@ h1 {
 .section {
   margin-top: 2rem;
   padding: 1.5rem;
-  padding-block-start: 2.5rem;
-  padding-block-end: 2.5rem;
   border-radius: 1rem;
   border: 1px solid var(--panel-border);
   background: var(--panel);
+
+  @media (max-width: 450px) {
+    padding: 1rem;
+  }
 }
 
 .section-head p {
@@ -239,6 +267,11 @@ fieldset {
   border: 1px solid var(--panel-border);
   border-radius: 0.75rem;
   padding: 1rem;
+
+  @media (max-width: 350px) {
+    width: 90%;
+    padding: 1rem 0rem 1rem 1rem;
+  }
 }
 
 legend {
@@ -249,6 +282,7 @@ legend {
 .form-grid {
   display: grid;
   gap: 0.85rem;
+  
 }
 
 .two-col {
@@ -270,10 +304,23 @@ textarea {
   color: var(--text);
   padding: 0.62rem 0.7rem;
   font: inherit;
+
+
+  @media (max-width: 350px) {
+    width: 90%;
+  }
 }
 
 textarea {
   resize: vertical;
+}
+
+.h-captcha {
+  margin-top: 0.5rem;
+  @media (max-width: 350px) {
+    transform: scale(0.85);
+    transform-origin: 0 0;
+  }
 }
 
 button[type="submit"] {

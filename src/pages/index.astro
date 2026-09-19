@@ -3,16 +3,18 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import ScheduleCalendar from "../components/ScheduleCalendar.astro";
 import CateringForm from "../components/CateringForm.astro";
 import textLogo from "../assets/Logotype.png";
+import { Image } from 'astro:assets';
 ---
 
 <BaseLayout title="Doskoi Style | Food Truck">
   <main>
     <section class="hero">
       <div class="textLogo-container">
-        <img
+        <Image
           class="site-textLogo"
-          src={textLogo.src}
+          src={textLogo}
           alt="Doskoi Style Logotype"
+          loading="eager"
         />
       </div>
       <h1>GET HIT WITH THE TASTE OF JAPAN!</h1>
