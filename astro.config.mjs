@@ -6,6 +6,6 @@ export default defineConfig({
   adapter: node({
     mode: "standalone"
   }),
-  site: 'https://<username>.github.io',
-  base: '/<repository-name>',
+  site: 'https://rakilkim.github.io',
+  base: '/Doskoi-Style',
 });
