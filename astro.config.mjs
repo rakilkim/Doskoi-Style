@@ -3,5 +3,4 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
   output: "static",
   site: 'https://rakilkim.github.io',
-  base: '/Doskoi-Style',
 });
