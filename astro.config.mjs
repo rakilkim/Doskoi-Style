@@ -5,5 +5,7 @@ export default defineConfig({
   output: "static",
   adapter: node({
     mode: "standalone"
-  })
+  }),
+  site: 'https://<username>.github.io',
+  base: '/<repository-name>',
 });
